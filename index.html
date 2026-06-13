@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Para mi tía Chela</title>
 
   <style>
     :root {
       --bg1: #fdf6f7;
       --bg2: #f6dfe4;
-      --card: rgba(255,255,255,0.92);
+      --card: rgba(255, 255, 255, 0.92);
       --text: #2d2426;
       --muted: #7b666b;
       --pink: #d7647b;
@@ -18,7 +19,10 @@
       --pink-pale: #fff4f6;
       --line: #efd6db;
       --shadow: rgba(98, 62, 72, 0.14);
-      --white: #ffffff;
+      --green: #8da887;
+      --green-light: #9fb993;
+      --yellow: #f2cf64;
+      --yellow-light: #fff3b6;
     }
 
     * {
@@ -48,9 +52,9 @@
       max-width: 980px;
       margin: 0 auto;
       min-height: calc(100vh - 24px);
-      background: rgba(255,255,255,0.75);
+      background: rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.85);
+      border: 1px solid rgba(255, 255, 255, 0.85);
       border-radius: 28px;
       overflow: hidden;
       position: relative;
@@ -63,13 +67,14 @@
       background: linear-gradient(135deg, #f3a6b5, #d7647b);
       opacity: 0.75;
       z-index: 0;
+      pointer-events: none;
     }
 
     .blob.one {
       width: 210px;
       height: 210px;
-      top: -80px;
-      right: -60px;
+      top: -82px;
+      right: -70px;
     }
 
     .blob.two {
@@ -83,30 +88,42 @@
     .blob.three {
       width: 34px;
       height: 34px;
-      top: 120px;
-      right: 90px;
+      top: 132px;
+      right: 92px;
     }
 
     header {
       position: relative;
-      z-index: 2;
+      z-index: 5;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
       padding: 26px 24px 10px;
       font-family: Arial, sans-serif;
     }
 
-    .brand {
+    .brand,
+    .tiny-note {
       color: var(--pink-dark);
+      background: rgba(255, 255, 255, 0.74);
+      padding: 7px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 22px rgba(98, 62, 72, 0.06);
+      position: relative;
+      z-index: 8;
+    }
+
+    .brand {
       font-weight: 700;
       letter-spacing: 0.3px;
     }
 
     .tiny-note {
-      color: var(--pink-dark);
       font-size: 0.86rem;
       font-weight: 600;
+      white-space: nowrap;
     }
 
     main {
@@ -185,7 +202,7 @@
     .secondary-button {
       border: 1px solid var(--pink);
       color: var(--pink-dark);
-      background: transparent;
+      background: rgba(255, 255, 255, 0.52);
     }
 
     .visual-card {
@@ -196,7 +213,7 @@
     }
 
     .frame {
-      width: min(330px, 82vw);
+      width: min(300px, 76vw);
       aspect-ratio: 1 / 1;
       background: white;
       padding: 16px;
@@ -208,54 +225,57 @@
     .frame-inner {
       width: 100%;
       height: 100%;
-      border-radius: 44px;
+      border-radius: 38px;
       background:
-        radial-gradient(circle at 50% 30%, rgba(255,255,255,0.7), transparent 24%),
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.7), transparent 24%),
         linear-gradient(145deg, #fdeff2, #f8cad4);
-      border: 12px solid #e27a8c;
+      border: 10px solid #e27a8c;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
-    .flower-wrap {
-      width: 190px;
-      height: 190px;
-      position: relative;
+    .flower-illustration {
+      width: min(210px, 58vw);
+      height: min(210px, 58vw);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       animation: floaty 3.5s ease-in-out infinite;
     }
 
-    .petal {
-      width: 66px;
-      height: 86px;
-      background: linear-gradient(180deg, #ffd9e1, #e56f86);
-      border-radius: 50% 50% 45% 45%;
-      position: absolute;
-      left: 62px;
-      top: 52px;
-      transform-origin: 33px 43px;
-      box-shadow: 0 8px 16px rgba(168, 66, 85, 0.14);
+    .flower-illustration svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
     }
 
-    .petal.p1 { transform: rotate(0deg) translateY(-50px); }
-    .petal.p2 { transform: rotate(60deg) translateY(-50px); }
-    .petal.p3 { transform: rotate(120deg) translateY(-50px); }
-    .petal.p4 { transform: rotate(180deg) translateY(-50px); }
-    .petal.p5 { transform: rotate(240deg) translateY(-50px); }
-    .petal.p6 { transform: rotate(300deg) translateY(-50px); }
+    .flower-petal {
+      fill: #e79aaa;
+      opacity: 0.94;
+      filter: drop-shadow(0 8px 10px rgba(168, 66, 85, 0.12));
+    }
 
-    .flower-center {
-      width: 52px;
-      height: 52px;
-      background: #fff1b3;
-      border-radius: 50%;
-      position: absolute;
-      left: 69px;
-      top: 69px;
-      box-shadow: inset 0 0 0 9px #efc963;
-      z-index: 2;
+    .flower-center-svg {
+      fill: var(--yellow);
+    }
+
+    .flower-center-light {
+      fill: var(--yellow-light);
+      opacity: 0.92;
+    }
+
+    .flower-stem {
+      fill: none;
+      stroke: var(--green);
+      stroke-width: 8;
+      stroke-linecap: round;
+    }
+
+    .flower-leaf {
+      fill: var(--green-light);
     }
 
     .mini-dot {
@@ -263,6 +283,7 @@
       border-radius: 50%;
       background: linear-gradient(135deg, #f3a6b5, #d7647b);
       box-shadow: 0 10px 20px rgba(80, 50, 55, 0.12);
+      pointer-events: none;
     }
 
     .mini-dot.a {
@@ -344,7 +365,7 @@
     .letter-card {
       max-width: 760px;
       margin: 0 auto;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.95);
       border: 1px solid var(--line);
       border-radius: 30px;
       padding: clamp(26px, 6vw, 52px);
@@ -394,6 +415,32 @@
       font-style: italic;
     }
 
+    .promise-card {
+      margin-top: 24px;
+      padding: 22px 18px;
+      border-radius: 22px;
+      background: white;
+      border: 1px solid var(--line);
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(98, 62, 72, 0.06);
+    }
+
+    .promise-card small {
+      display: block;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--pink);
+      font-size: 0.74rem;
+      margin-bottom: 10px;
+    }
+
+    .promise-card p {
+      color: var(--text);
+      line-height: 1.55;
+      font-size: clamp(1.2rem, 4vw, 1.7rem);
+    }
+
     .center-actions {
       display: flex;
       justify-content: center;
@@ -406,7 +453,7 @@
       border-radius: 24px;
       border: 1px solid var(--line);
       background:
-        radial-gradient(circle at top right, rgba(215,100,123,0.14), transparent 34%),
+        radial-gradient(circle at top right, rgba(215, 100, 123, 0.14), transparent 34%),
         #fff8fa;
       text-align: center;
     }
@@ -509,15 +556,20 @@
 
     footer {
       text-align: center;
-      color: var(--muted);
+      color: var(--pink-dark);
       font-size: 0.82rem;
       font-family: Arial, sans-serif;
       padding: 20px 0 4px;
+      font-weight: 600;
     }
 
     @keyframes floaty {
-      0%, 100% { transform: translateY(0) rotate(-1deg); }
-      50% { transform: translateY(-7px) rotate(1deg); }
+      0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+      }
+      50% {
+        transform: translateY(-7px) rotate(1deg);
+      }
     }
 
     @keyframes fadeUp {
@@ -541,8 +593,28 @@
         border-radius: 22px;
       }
 
+      .blob.one {
+        width: 180px;
+        height: 180px;
+        top: -72px;
+        right: -78px;
+      }
+
+      .blob.three {
+        width: 28px;
+        height: 28px;
+        top: 120px;
+        right: 80px;
+      }
+
       header {
         padding: 22px 18px 8px;
+      }
+
+      .brand,
+      .tiny-note {
+        font-size: 0.78rem;
+        padding: 6px 10px;
       }
 
       main {
@@ -551,22 +623,33 @@
 
       .hero {
         grid-template-columns: 1fr;
-        gap: 6px;
-        min-height: 78vh;
-        align-content: center;
+        gap: 12px;
+        min-height: auto;
+        padding: 28px 0 44px;
+        align-content: start;
       }
 
       .visual-card {
-        min-height: 260px;
-        order: -1;
+        min-height: 250px;
+        order: 0;
+        margin-top: 12px;
       }
 
       .frame {
-        width: min(255px, 74vw);
+        width: min(270px, 76vw);
       }
 
-      .flower-wrap {
-        transform: scale(0.82);
+      .flower-illustration {
+        width: min(185px, 54vw);
+        height: min(185px, 54vw);
+      }
+
+      h1 {
+        font-size: clamp(3rem, 15vw, 4.8rem);
+      }
+
+      .subtitle {
+        margin-bottom: 22px;
       }
 
       .button-row {
@@ -575,6 +658,14 @@
 
       .phrase {
         min-height: 210px;
+      }
+
+      .letter-card {
+        border-radius: 26px;
+      }
+
+      .letter-text {
+        padding: 22px 18px;
       }
 
       .details {
@@ -587,6 +678,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="page">
     <div class="blob one"></div>
@@ -602,9 +694,11 @@
       <section class="hero" id="hero">
         <div>
           <div class="intro-label">Una cartica especial</div>
+
           <h1>Hola, <span>tía</span></h1>
+
           <p class="subtitle">
-            Hice esta página para darte una cartica bonita y con mucho cariño.
+            Hice esta página para darte una cartica bonita, sencilla y con mucho cariño.
           </p>
 
           <div class="button-row">
@@ -616,16 +710,23 @@
         <div class="visual-card">
           <div class="frame">
             <div class="frame-inner">
-              <div class="flower-wrap">
-                <div class="petal p1"></div>
-                <div class="petal p2"></div>
-                <div class="petal p3"></div>
-                <div class="petal p4"></div>
-                <div class="petal p5"></div>
-                <div class="petal p6"></div>
-                <div class="flower-center"></div>
+              <div class="flower-illustration">
+                <svg viewBox="0 0 220 220" aria-hidden="true">
+                  <path class="flower-stem" d="M110 128 C108 150 108 165 110 184" />
+                  <path class="flower-leaf" d="M110 158 C88 145 77 150 67 166 C88 172 101 169 110 158" />
+
+                  <ellipse class="flower-petal" cx="110" cy="63" rx="30" ry="48" />
+                  <ellipse class="flower-petal" cx="154" cy="94" rx="30" ry="48" transform="rotate(72 154 94)" />
+                  <ellipse class="flower-petal" cx="137" cy="147" rx="30" ry="48" transform="rotate(144 137 147)" />
+                  <ellipse class="flower-petal" cx="83" cy="147" rx="30" ry="48" transform="rotate(216 83 147)" />
+                  <ellipse class="flower-petal" cx="66" cy="94" rx="30" ry="48" transform="rotate(288 66 94)" />
+
+                  <circle class="flower-center-svg" cx="110" cy="110" r="26" />
+                  <circle class="flower-center-light" cx="102" cy="104" r="15" />
+                </svg>
               </div>
             </div>
+
             <div class="mini-dot a"></div>
             <div class="mini-dot b"></div>
           </div>
@@ -645,6 +746,7 @@
       <section class="letter-section" id="letterSection">
         <div class="letter-card">
           <h2>Querida <span>tía Chela</span>,</h2>
+
           <p class="letter-intro">
             Esta cartica es para ti, con mucho cariño.
           </p>
@@ -683,6 +785,14 @@
             Gabi
           </div>
 
+          <div class="promise-card">
+            <small>Una promesa pendiente</small>
+            <p>
+              Un cafecito, una conversación larga<br />
+              y un rato bonito contigo.
+            </p>
+          </div>
+
           <div class="center-actions">
             <button onclick="goToInvite()">Ver mi invitación especial</button>
           </div>
@@ -700,10 +810,12 @@
                 <small>Fecha</small>
                 <strong>Por definir</strong>
               </div>
+
               <div class="detail">
                 <small>Lugar</small>
                 <strong>Un café lindo en Bogotá</strong>
               </div>
+
               <div class="detail">
                 <small>Plan</small>
                 <strong>Hablar, reír y compartir</strong>
@@ -782,6 +894,7 @@
 
     function openLetter() {
       document.getElementById("cinema").classList.remove("active");
+
       const letterSection = document.getElementById("letterSection");
       letterSection.classList.add("show");
 
@@ -793,7 +906,9 @@
     function skipToLetter() {
       document.getElementById("hero").style.display = "none";
       document.getElementById("cinema").classList.remove("active");
-      document.getElementById("letterSection").classList.add("show");
+
+      const letterSection = document.getElementById("letterSection");
+      letterSection.classList.add("show");
     }
 
     function goToInvite() {
@@ -812,7 +927,8 @@
     };
 
     function openWhatsapp() {
-      const gabiWhatsapp = "573001234567";
+      const gabiWhatsapp = "14073943285";
+
       const message = "Hola Gabi 💗 vi tu carta. Cafecito prometido cuando vuelvas a Bogotá ☕";
       const url = `https://wa.me/${gabiWhatsapp}?text=${encodeURIComponent(message)}`;
 
