@@ -10,12 +10,10 @@
     :root {
       --bg1: #fdf6f7;
       --bg2: #f6dfe4;
-      --card: rgba(255, 255, 255, 0.92);
       --text: #2d2426;
       --muted: #7b666b;
       --pink: #d7647b;
       --pink-dark: #a8475a;
-      --pink-soft: #f8d7de;
       --pink-pale: #fff4f6;
       --line: #efd6db;
       --shadow: rgba(98, 62, 72, 0.14);
@@ -96,23 +94,27 @@
       position: relative;
       z-index: 5;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 12px;
-      padding: 26px 24px 10px;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 22px 18px 10px;
       font-family: Arial, sans-serif;
     }
 
     .brand,
     .tiny-note {
       color: var(--pink-dark);
-      background: rgba(255, 255, 255, 0.74);
+      background: rgba(255, 255, 255, 0.8);
       padding: 7px 12px;
       border-radius: 999px;
       backdrop-filter: blur(6px);
       box-shadow: 0 8px 22px rgba(98, 62, 72, 0.06);
       position: relative;
       z-index: 8;
+      max-width: 100%;
+      text-align: center;
+      line-height: 1.2;
     }
 
     .brand {
@@ -583,6 +585,7 @@
       0%, 100% {
         transform: translateY(0) rotate(-1deg);
       }
+
       50% {
         transform: translateY(-7px) rotate(1deg);
       }
@@ -593,6 +596,7 @@
         opacity: 0;
         transform: translateY(18px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -610,27 +614,28 @@
       }
 
       .blob.one {
-        width: 180px;
-        height: 180px;
-        top: -72px;
-        right: -78px;
+        width: 170px;
+        height: 170px;
+        top: -80px;
+        right: -86px;
       }
 
       .blob.three {
-        width: 28px;
-        height: 28px;
-        top: 120px;
-        right: 80px;
+        width: 26px;
+        height: 26px;
+        top: 128px;
+        right: 74px;
       }
 
       header {
-        padding: 22px 18px 8px;
+        padding: 18px 14px 8px;
+        gap: 8px;
       }
 
       .brand,
       .tiny-note {
-        font-size: 0.78rem;
-        padding: 6px 10px;
+        font-size: 0.74rem;
+        padding: 6px 9px;
       }
 
       main {
@@ -687,6 +692,22 @@
 
       .coffee-card {
         padding: 24px 16px;
+      }
+
+      .canva-image {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brand,
+      .tiny-note {
+        font-size: 0.7rem;
+        padding: 6px 8px;
+      }
+
+      header {
+        padding-top: 16px;
       }
     }
   </style>
@@ -858,7 +879,7 @@
             <img
               class="canva-image"
               id="canvaImage"
-              src="invitacion-cafe.png"
+              src="./invitacion-cafe.png?v=2"
               alt="Invitación a un café para mi tía Chela"
             />
 
@@ -983,8 +1004,13 @@
       canvaBox.style.display = "none";
     };
 
+    canvaImage.onerror = function() {
+      canvaImage.style.display = "none";
+      canvaBox.style.display = "block";
+    };
+
     function openWhatsapp() {
-      const gabiWhatsapp = "14073943285";
+      const gabiWhatsapp = "573001234567";
 
       const message = "Hola Gabi 💗 vi tu carta. Cafecito prometido cuando vuelvas a Bogotá ☕";
       const url = `https://wa.me/${gabiWhatsapp}?text=${encodeURIComponent(message)}`;
