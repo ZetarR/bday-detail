@@ -352,7 +352,8 @@
       transition: width 0.5s ease;
     }
 
-    .letter-section {
+    .letter-section,
+    .invite-section {
       display: none;
       animation: fadeUp 0.85s ease forwards;
       padding-top: 10px;
@@ -362,7 +363,17 @@
       display: block;
     }
 
-    .letter-card {
+    .invite-section.show {
+      min-height: 72vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 0 10px;
+    }
+
+    .letter-card,
+    .invite-card {
       max-width: 760px;
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.95);
@@ -370,9 +381,11 @@
       border-radius: 30px;
       padding: clamp(26px, 6vw, 52px);
       box-shadow: 0 18px 50px rgba(91, 48, 57, 0.10);
+      width: 100%;
     }
 
-    .letter-card h2 {
+    .letter-card h2,
+    .invite-card h2 {
       text-align: center;
       font-size: clamp(2.2rem, 7vw, 4.4rem);
       line-height: 0.95;
@@ -380,11 +393,13 @@
       margin-bottom: 14px;
     }
 
-    .letter-card h2 span {
+    .letter-card h2 span,
+    .invite-card h2 span {
       color: var(--pink);
     }
 
-    .letter-intro {
+    .letter-intro,
+    .invite-intro {
       text-align: center;
       color: var(--muted);
       font-family: Arial, sans-serif;
@@ -445,10 +460,11 @@
       display: flex;
       justify-content: center;
       margin-top: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .coffee-card {
-      margin-top: 28px;
       padding: 28px 22px;
       border-radius: 24px;
       border: 1px solid var(--line);
@@ -652,15 +668,12 @@
         margin-bottom: 22px;
       }
 
-      .button-row {
-        justify-content: flex-start;
-      }
-
       .phrase {
         min-height: 210px;
       }
 
-      .letter-card {
+      .letter-card,
+      .invite-card {
         border-radius: 26px;
       }
 
@@ -796,6 +809,20 @@
           <div class="center-actions">
             <button onclick="goToInvite()">Ver mi invitación especial</button>
           </div>
+        </div>
+
+        <footer>
+          Hecho con cariño por Gabi ♡
+        </footer>
+      </section>
+
+      <section class="invite-section" id="inviteSection">
+        <div class="invite-card">
+          <h2>Una invitación <span>especial</span></h2>
+
+          <p class="invite-intro">
+            Porque esta cartica también viene con un plan pendiente.
+          </p>
 
           <div class="coffee-card" id="coffeeCard">
             <h3>Invitación a un <span>café</span></h3>
@@ -843,6 +870,10 @@
               Cafecito prometido ♡
             </div>
           </div>
+
+          <div class="center-actions">
+            <button class="secondary-button" onclick="backToLetter()">Volver a la carta</button>
+          </div>
         </div>
 
         <footer>
@@ -865,7 +896,11 @@
 
     function startStory() {
       document.getElementById("hero").style.display = "none";
+      document.getElementById("letterSection").classList.remove("show");
+      document.getElementById("inviteSection").classList.remove("show");
       document.getElementById("cinema").classList.add("active");
+
+      currentPhrase = 0;
       showPhrase();
     }
 
@@ -894,6 +929,7 @@
 
     function openLetter() {
       document.getElementById("cinema").classList.remove("active");
+      document.getElementById("inviteSection").classList.remove("show");
 
       const letterSection = document.getElementById("letterSection");
       letterSection.classList.add("show");
@@ -906,16 +942,37 @@
     function skipToLetter() {
       document.getElementById("hero").style.display = "none";
       document.getElementById("cinema").classList.remove("active");
+      document.getElementById("inviteSection").classList.remove("show");
 
       const letterSection = document.getElementById("letterSection");
       letterSection.classList.add("show");
+
+      setTimeout(() => {
+        letterSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 180);
     }
 
     function goToInvite() {
-      document.getElementById("coffeeCard").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      document.getElementById("letterSection").classList.remove("show");
+      document.getElementById("cinema").classList.remove("active");
+
+      const inviteSection = document.getElementById("inviteSection");
+      inviteSection.classList.add("show");
+
+      setTimeout(() => {
+        inviteSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
+    }
+
+    function backToLetter() {
+      document.getElementById("inviteSection").classList.remove("show");
+
+      const letterSection = document.getElementById("letterSection");
+      letterSection.classList.add("show");
+
+      setTimeout(() => {
+        letterSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
     }
 
     const canvaImage = document.getElementById("canvaImage");
